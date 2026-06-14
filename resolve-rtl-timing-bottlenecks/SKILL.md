@@ -5,13 +5,13 @@ description: Transforms synthesizable RTL to resolve timing bottlenecks while pr
 
 # Resolve RTL Timing Bottlenecks
 
-Use this skill to rewrite RTL for better timing closure without changing visible behavior.
+Use this skill to rewrite RTL for better timing closure without changing visible behavior. Logical equivalence is a hard precondition: do not apply a transformation unless the same observable cycle behavior can be preserved and justified.
 
 ## Workflow
 
 1. Identify the target language, clock/reset style, module boundaries, timing target, failing path type, and whether the user provided STA reports, synthesis timing reports, or path schematics.
 2. Preserve public interfaces unless the user explicitly allows interface changes.
-3. Preserve cycle behavior by default. If a useful transformation changes latency, throughput, handshake timing, or reset observability, present it as an optional architectural change instead of applying it silently.
+3. Preserve cycle behavior. If a transformation changes latency, throughput, handshake timing, reset observability, or any module-visible behavior, do not apply it under this skill; report it only as an out-of-scope architectural alternative when useful.
 4. Load `references/rtl-timing-patterns.md` when the task requires non-trivial timing transformations or when choosing among multiple critical-path reduction patterns.
 5. Prioritize transformations that reduce logic depth, simplify priority chains, split wide mux/decode paths, balance reductions, precompute shared terms, and make the design more retiming-friendly without altering behavior.
 6. Keep the code synthesizable and compatible with the repository's existing RTL style.
@@ -19,8 +19,8 @@ Use this skill to rewrite RTL for better timing closure without changing visible
 
 ## Edit Rules
 
-- Avoid changing module ports, register-visible behavior, reset polarity, valid/ready semantics, exception timing, or status timing unless explicitly requested.
-- Avoid adding pipeline stages or moving architectural registers across observable boundaries unless the user accepts latency or timing-contract changes.
+- Avoid changing module ports, register-visible behavior, reset polarity, valid/ready semantics, exception timing, or status timing.
+- Do not add pipeline stages or move architectural registers across observable boundaries.
 - Prefer balanced combinational structure, localized muxing, predecoded control, one-hot or encoded conversion where equivalent, common-subexpression extraction, and retiming-friendly RTL.
 - Preserve attributes, pragmas, lint waivers, synthesis directives, CDC annotations, and timing exceptions unless they are clearly obsolete after the rewrite.
 - Keep naming deterministic and local to the transformed logic; do not rename unrelated signals.
