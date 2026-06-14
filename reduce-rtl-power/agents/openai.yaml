@@ -1,0 +1,3 @@
+display_name: Reduce RTL Power
+short_description: Rewrite RTL to reduce power while preserving functional equivalence.
+default_prompt: Reduce power in this RTL while preserving functional equivalence and interface behavior.
