@@ -1,0 +1,3 @@
+display_name: Resolve RTL Timing Bottlenecks
+short_description: Rewrite RTL to fix timing bottlenecks while preserving equivalence.
+default_prompt: Resolve timing bottlenecks in this RTL while preserving logical equivalence and interface behavior.
