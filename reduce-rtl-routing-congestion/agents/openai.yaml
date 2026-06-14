@@ -1,0 +1,3 @@
+display_name: Reduce RTL Routing Congestion
+short_description: Rewrite RTL to reduce routing congestion while preserving equivalence.
+default_prompt: Reduce routing congestion in this RTL while preserving behavior and interface compatibility.
